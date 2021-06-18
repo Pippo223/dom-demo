@@ -1,43 +1,37 @@
-const btn1 = document.querySelector("#addBtn")
+const addMovieBtn = document.querySelector("#addBtn")
 const modal1 = document.getElementById("add-modal")
 const backdrop = document.getElementById("backdrop")
-const add = document.querySelector(".btn--success")
+const addMovie = document.querySelector(".btn--success")
 const cancel = document.querySelector(".btn--passive")
 const movieArray = []
 const section = document.getElementById("entry-text")
 
-btn1.addEventListener("click", () => {
-    
+function OpenModal() {
     modal1.style.display = "block"
     displayBackdrop()
-}) 
+} 
 
 function displayBackdrop() {
     if (modal1.style.display === "block")
     backdrop.style.display = "block"
 }
 
-cancel.addEventListener("click", () => {
-
-    clearInput()
+function cancelMovies() {
     backdrop.style.display = "none"
     modal1.style.display = "none"
+}
 
-})
 
- function backdropOff(){
+ function modalAndBackdropOff() {
 
     if( backdrop.style.display === "block")
        { 
-        clearInput()
            backdrop.style.display = "none"
             modal1.style.display = "none"
-
         }
 }
 
-add.addEventListener ("click", () => {
-
+function addMovies() {
     const title1 = document.getElementById("title").value
     const imageURL1 = document.getElementById("image-url").value
     const rating1 = document.getElementById("rating").value
@@ -45,27 +39,23 @@ add.addEventListener ("click", () => {
     if (title1.trim()==="" || imageURL1.trim()==="" || rating1.trim()==="" || rating1 < 1 || rating1 > 5)
     {
         alert("Enter valid values")
-        return false;
+        return;
     }
-
-    else {
         
             let movie = {
                 title:title1,
                 imageURL:imageURL1,
                 rating:rating1
             }
-            let store = storeMovie(movie)
-            console.log(store);
+
+            console.log(storeMovie(movie));
             toggleSection()
             appendMovie(movie.title)
             clearInput()
-            alert("Movie Added Successfully") 
-            backdrop.style.display = "none"
-            modal1.style.display = "none"
-    }
+            modalAndBackdropOff()   
+}
 
-})
+
 
 function storeMovie(movie) {
     movieArray.push(movie)
@@ -98,6 +88,9 @@ function appendMovie(movie) {
 }
 
 window.onload = toggleSection()
+addMovieBtn.addEventListener("click",OpenModal)
+cancel.addEventListener("click", cancelMovies)
+addMovie.addEventListener ("click", addMovies)
 
 
  
