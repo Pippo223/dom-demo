@@ -5,6 +5,7 @@ const addMovie = document.querySelector(".btn--success")
 const cancel = document.querySelector(".btn--passive")
 const movieArray = []
 const section = document.getElementById("entry-text")
+const ul = document.getElementById("movie-list")
 
 function OpenModal() {
     modal1.style.display = "block"
@@ -50,7 +51,7 @@ function addMovies() {
 
             console.log(storeMovie(movie));
             toggleSection()
-            appendMovie(movie.title)
+            appendMovie(movie)
             clearInput()
             modalAndBackdropOff()   
 }
@@ -69,10 +70,17 @@ function clearInput() {
 }
 
 function appendMovie(movie) {
-    const ul = document.getElementById("movie-list")
     const newLi = document.createElement('li')
-    newLi.style.paddingBottom="0.5rem"
-    newLi.innerHTML = movie
+    newLi.className = "movie-element"
+    newLi.innerHTML = `
+    <div class="movie-element__image">
+        <img src="${movie.imageURL}" alt="the boy" />
+    </div>
+    <div class="movie-element__info">
+        <h2>${movie.title}</h2>
+        <p>${movie.rating}</p>
+    </div>
+    `
     
     ul.appendChild(newLi)
 }
